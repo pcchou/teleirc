@@ -5,13 +5,13 @@ var nodeirc = require('irc');
 var telegram = require('telegram-bot');
 
 // configs
-var config = require(process.env.HOME + '/.teleirc_config.js');
+var config = require(process.env.PWD + '/.teleirc_config.js');
 
 var tg_chat_id = null;
 if (!tg_chat_id) {
     // try to read tg_chat_id from disk, otherwise get it from first conversation
     try {
-        tg_chat_id = fs.readFileSync(process.env.HOME + '/.teleirc_chat_id');
+        tg_chat_id = fs.readFileSync(process.env.PWD + '/.teleirc_chat_id');
         console.log('Using chat_id: ' + tg_chat_id);
     } catch(e) {
         console.log('\n');
