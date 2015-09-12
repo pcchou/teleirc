@@ -55,6 +55,22 @@ irc.on('message', function(user, channel, message) {
     }
 });
 
+irc.on('action', function(user, channel, message) {
+    // is this from the correct channel?
+    if (config.irc_channel.toLowerCase() !== channel.toLowerCase()) {
+        return;
+    }
+
+    var match = config.irc_hilight_re.exec(message);
+    if (match || config.irc_relay_all) {
+        if (match) {
+            message = match[1].trim();
+        }
+        var text = '* <' + user + '>: ' + message;
+        tg_send_msg(text);
+    }
+});
+
 // ignore first topic event when joining channel
 var first_topic_event = true;
 irc.on('topic', function(channel, topic, nick) {
